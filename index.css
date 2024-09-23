@@ -1,0 +1,144 @@
+/* General styles */
+
+* {
+    font-family: Inter, serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 48px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 29px;
+    margin: 0;
+}
+
+h5, label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    margin: 0;
+}
+
+button {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 16px;
+    background-color: transparent;
+}
+
+.primary-btn {
+    background-color: #FF6600;
+    color: #FFFFFF;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input {
+    border-radius: 4px;
+    height: 32px;
+}
+
+textarea {
+    border-radius: 4px;
+    height: 96px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.float-right {
+    float: right;
+}
+
+/* Container styles */
+
+.container {
+    width: 800px;
+    background-color: #E2E2E2;
+    padding: 24px;
+}
+
+.container > button {
+    float: right;
+}
+
+/* Search bar */
+
+.filters span {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.filters > span {
+    margin-right: 10px;
+}
+
+.filters > .active {
+    color: #FF6600;
+}
+
+/* Card styles */
+
+.card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 10px;
+    margin: 16px 0;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+}
+
+.card.completed {
+    opacity: 0.5;
+}
+
+.card.completed > h2,
+.card.completed > p {
+    text-decoration-line: line-through;
+}
+
+.card > .filter-label {
+    border: #FF6600 solid 1px;
+    border-radius: 2px;
+    color: #FF6600;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 3px;
+}
+
+.card > p {
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+#add-form {
+    padding-top: 16px;
+    border-top: #999999 solid 1px;
+    display: flex;
+    flex-direction: column;
+}

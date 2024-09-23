@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Test To Do List | Vanilla JS</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section class="container">
+    <h1>Список справ</h1>
+    <label for="search-form"></label>
+    <input id="search-form" />
+    <div class="filters">
+      <span class="active">Домашні справи</span><span>Робота</span><span>Фітнес</span>
+    </div>
+
+    <div id="todo-list"></div>
+
+    <form id="add-form" class="hidden">
+      <header class="filters">
+        <h5>Категорія</h5>
+        <span class="active">Домашні справи</span><span>Робота</span><span>Фітнес</span>
+      </header>
+      <label for="title">Заголовок</label>
+      <input id="title" type="text">
+      <label for="description">Примітка</label>
+      <textarea id="description"></textarea>
+      <footer class="action-buttons">
+        <button id="cancel-button">X Скасувати</button>
+        <button id="save-button" class="primary-btn">V Зберегти</button>
+      </footer>
+    </form>
+    <button id="add-button" class="primary-btn">+ Додати справу</button>
+
+  </section>
+  <script src="index.js"></script>
+
+</body>
+</html>
