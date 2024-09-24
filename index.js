@@ -1,25 +1,14 @@
 class ListItem {
     constructor(title, description) {
+        this.ID = Math.floor(Math.random() * 100);
         this.title = title;
         this.description = description;
-
+        this.tags = [];
+        this.isDone = false;
     }
 }
 
-const LIST = [
-    {
-        title: "Grocery",
-        description: "Make a grocery list",
-        tags: ["Chores"],
-        isDone: false
-    },
-    {
-        title: "Drink water",
-        description: "Fill the bottle",
-        tags: ["Health"],
-        isDone: true
-    }
-];
+let LIST = JSON.parse(localStorage.getItem('todolist') || '[]');
 
 const TAGS = [
     "Chores",
@@ -27,21 +16,15 @@ const TAGS = [
     "Health"
 ]
 
-const listPlaceholder = document.getElementById("todo-list");
+const todoList = document.getElementById("todo-list");
+renderList(LIST);
 
-LIST.forEach( el => {
-    listPlaceholder.innerHTML += `
-    <div class="card ${el.isDone ? "completed" : ""}">
-          <span class="filter-label">${el.tags}</span>
-          <div class="action-buttons">
-            <i id="edit-btn" class="fa-solid fa-pen"></i>
-            <i class="fa-solid fa-trash"></i>
-          </div>
-          <h2>${el.title}</h2>
-          <p>${el.description}</p>
-          <button id="button-done" class="primary-btn"><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
-    </div>
-`
+todoList.addEventListener('click', e => {
+    const itemID = e.target?.dataset?.id;
+    LIST = LIST.filter(el => el.ID !== +itemID);
+    localStorage.setItem('todolist', JSON.stringify(LIST));
+
+    renderList(LIST);
 })
 
 const addButton = document.getElementById("add-button");
@@ -58,14 +41,17 @@ const cancelButton = document.getElementById("cancel-button");
 saveButton.addEventListener("click", e => {
     e.preventDefault();
 
-    LIST.push({
-        title: document.getElementById("title").value,
-        description: document.getElementById("description").value,
-        tags: [],
-        isDone: false
-    });
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const newTask = new ListItem(title, description);
+
+    LIST.push(newTask);
+
+    localStorage.setItem('todolist', JSON.stringify(LIST));
 
     clearForm();
+    closeForm();
+    renderList(LIST);
 });
 
 cancelButton.addEventListener("click", e => {
@@ -73,9 +59,33 @@ cancelButton.addEventListener("click", e => {
     clearForm();
 })
 
+function renderList(list) {
+    todoList.innerHTML = '';
+
+    list.forEach( el => {
+        todoList.innerHTML += `
+    <div class="card ${el.isDone ? "completed" : ""}">
+          <span class="filter-label">${el.tags}</span>
+          <div class="action-buttons">
+            <i id="edit-btn" class="fa-solid fa-pen"></i>
+            <i class="fa-solid fa-trash" data-id='${el.ID}'></i>
+          </div>
+          <h2>${el.title}</h2>
+          <p>${el.description}</p>
+          <button id="button-done" class="primary-btn"><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
+    </div>
+`
+    })
+}
+
 function clearForm() {
     document.getElementById("title").value = '';
     document.getElementById("description").value = '';
+}
+
+function closeForm() {
+    addButton.classList.remove("hidden");
+    addForm.classList.add("hidden");
 }
 
 

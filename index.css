@@ -39,6 +39,10 @@ button {
     background-color: transparent;
 }
 
+button:hover {
+    background-color: #9d3b00;
+}
+
 .primary-btn {
     background-color: #FF6600;
     color: #FFFFFF;
