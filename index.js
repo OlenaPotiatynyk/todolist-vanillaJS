@@ -95,7 +95,7 @@ function renderList(list) {
           </div>
           <h2>${el.title}</h2>
           <p>${el.description}</p>
-          <button id="button-done" class="primary-btn" data-action="done"><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
+          <button id="button-done" class="primary-btn" data-action="done"><i class="fa-regular fa-circle-check"></i> ${el.isDone ? "Mark Undone" : "Mark as Done"}</button>
     </div>
 `
     })
