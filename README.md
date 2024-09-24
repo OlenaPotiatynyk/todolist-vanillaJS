@@ -31,10 +31,10 @@ Press the "Add" button or hit "Enter" to add the task to the list.
 - **Mark a Task as Complete:** Click on the checkbox next to the task to mark it as completed.
 Completed tasks will be visually indicated (e.g., struck through or highlighted).
 - **Delete a Task:** Click the "Delete" (trash bin) icon next to a task to remove it from the list.
+- **Task Persistence:** Your tasks are saved in your browser's localStorage, so they will remain even if you close or refresh the page.
 
 Additional Features:
 - **Edit Existing Task:** Active task can be edited.
-- **Task Persistence:** Your tasks are saved in your browser's localStorage, so they will remain even if you close or refresh the page.
 - **Responsive Design:** The TO DO list is fully responsive and can be used on mobile, tablet, and desktop devices.
 - **Search Bar:** You can filter tasks by any search keys.
 - **Filter By Tags:** You can filter tasks by tags.
