@@ -1,22 +1,30 @@
+class ListItem {
+    constructor(title, description) {
+        this.title = title;
+        this.description = description;
+
+    }
+}
+
 const LIST = [
     {
-        title: "Купити продукти",
-        description: "Скласти список необхідних продуктів",
-        tags: ["Домашні справи"],
+        title: "Grocery",
+        description: "Make a grocery list",
+        tags: ["Chores"],
         isDone: false
     },
     {
-        title: "Випити водички",
-        description: "Налити водичку в бутилку",
-        tags: ["Фітнес"],
+        title: "Drink water",
+        description: "Fill the bottle",
+        tags: ["Health"],
         isDone: true
     }
 ];
 
 const TAGS = [
-    "Домашні справи",
-    "Робота",
-    "Фітнес"
+    "Chores",
+    "Work",
+    "Health"
 ]
 
 const listPlaceholder = document.getElementById("todo-list");
@@ -31,7 +39,7 @@ LIST.forEach( el => {
           </div>
           <h2>${el.title}</h2>
           <p>${el.description}</p>
-          <button id="button-done" class="primary-btn">Завершити</button>
+          <button id="button-done" class="primary-btn">Mark as Done</button>
     </div>
 `
 })

@@ -49,6 +49,7 @@ label {
 }
 
 input {
+    border: #999999 solid 1px;
     border-radius: 4px;
     height: 32px;
 }
