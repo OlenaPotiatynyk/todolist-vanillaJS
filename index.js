@@ -34,12 +34,12 @@ LIST.forEach( el => {
     <div class="card ${el.isDone ? "completed" : ""}">
           <span class="filter-label">${el.tags}</span>
           <div class="action-buttons">
-            <span>Edit</span>
-            <span>Delete</span>
+            <i id="edit-btn" class="fa-solid fa-pen"></i>
+            <i class="fa-solid fa-trash"></i>
           </div>
           <h2>${el.title}</h2>
           <p>${el.description}</p>
-          <button id="button-done" class="primary-btn">Mark as Done</button>
+          <button id="button-done" class="primary-btn"><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
     </div>
 `
 })
@@ -47,7 +47,7 @@ LIST.forEach( el => {
 const addButton = document.getElementById("add-button");
 const addForm = document.getElementById("add-form");
 
-addButton.addEventListener("click", (event) => {
+addButton.addEventListener("click", () => {
     addButton.classList.add("hidden");
     addForm.classList.remove("hidden");
 });
