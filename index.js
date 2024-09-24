@@ -3,7 +3,7 @@ class ListItem {
         this.ID = Math.floor(Math.random() * 100);
         this.title = title;
         this.description = description;
-        this.tags = [];
+        this.tags = ["Chores"];
         this.isDone = false;
     }
 }
@@ -20,11 +20,33 @@ const todoList = document.getElementById("todo-list");
 renderList(LIST);
 
 todoList.addEventListener('click', e => {
+    const action = e.target?.dataset?.action;
     const itemID = e.target?.dataset?.id;
-    LIST = LIST.filter(el => el.ID !== +itemID);
-    localStorage.setItem('todolist', JSON.stringify(LIST));
 
-    renderList(LIST);
+    switch (action) {
+        case 'edit':
+
+            break
+        case 'remove':
+            LIST = LIST.filter(el => el.ID !== +itemID);
+            localStorage.setItem('todolist', JSON.stringify(LIST));
+
+            renderList(LIST);
+            break
+        case 'done':
+            LIST = LIST.map(el => {
+                if(el.ID === +itemID) {
+                    return ({...el, isDone: !el.isDone});
+                }
+                return el;
+            });
+            localStorage.setItem('todolist', JSON.stringify(LIST));
+
+            renderList(LIST);
+            break
+        default:
+            return;
+    }
 })
 
 const addButton = document.getElementById("add-button");
@@ -57,6 +79,7 @@ saveButton.addEventListener("click", e => {
 cancelButton.addEventListener("click", e => {
     e.preventDefault();
     clearForm();
+    closeForm();
 })
 
 function renderList(list) {
@@ -67,12 +90,12 @@ function renderList(list) {
     <div class="card ${el.isDone ? "completed" : ""}">
           <span class="filter-label">${el.tags}</span>
           <div class="action-buttons">
-            <i id="edit-btn" class="fa-solid fa-pen"></i>
-            <i class="fa-solid fa-trash" data-id='${el.ID}'></i>
+            <i id="edit-btn" class="fa-solid fa-pen" data-action="edit" data-id='${el.ID}'></i>
+            <i class="fa-solid fa-trash" data-action="remove" data-id='${el.ID}'></i>
           </div>
           <h2>${el.title}</h2>
           <p>${el.description}</p>
-          <button id="button-done" class="primary-btn"><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
+          <button id="button-done" class="primary-btn" data-action="done" data-id='${el.ID}'><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
     </div>
 `
     })

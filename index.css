@@ -71,6 +71,10 @@ textarea {
     float: right;
 }
 
+i:hover {
+    color: #FF6600;
+}
+
 /* Container styles */
 
 .container {
