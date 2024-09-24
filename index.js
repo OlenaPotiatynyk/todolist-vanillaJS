@@ -21,7 +21,7 @@ renderList(LIST);
 
 todoList.addEventListener('click', e => {
     const action = e.target?.dataset?.action;
-    const itemID = e.target?.dataset?.id;
+    const itemID = e.target?.closest('.card')?.dataset?.id;
 
     switch (action) {
         case 'edit':
@@ -87,15 +87,15 @@ function renderList(list) {
 
     list.forEach( el => {
         todoList.innerHTML += `
-    <div class="card ${el.isDone ? "completed" : ""}">
+    <div class="card ${el.isDone ? "completed" : ""}" data-id='${el.ID}'>
           <span class="filter-label">${el.tags}</span>
           <div class="action-buttons">
-            <i id="edit-btn" class="fa-solid fa-pen" data-action="edit" data-id='${el.ID}'></i>
-            <i class="fa-solid fa-trash" data-action="remove" data-id='${el.ID}'></i>
+            <i id="edit-btn" class="fa-solid fa-pen" data-action="edit"></i>
+            <i class="fa-solid fa-trash" data-action="remove"></i>
           </div>
           <h2>${el.title}</h2>
           <p>${el.description}</p>
-          <button id="button-done" class="primary-btn" data-action="done" data-id='${el.ID}'><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
+          <button id="button-done" class="primary-btn" data-action="done"><i class="fa-regular fa-circle-check"></i> Mark as Done</button>
     </div>
 `
     })

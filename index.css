@@ -41,6 +41,7 @@ button {
 
 button:hover {
     background-color: #9d3b00;
+    color: #FFFFFF;
 }
 
 .primary-btn {
@@ -71,7 +72,7 @@ textarea {
     float: right;
 }
 
-i:hover {
+.action-buttons i:hover {
     color: #FF6600;
 }
 
