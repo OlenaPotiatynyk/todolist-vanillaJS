@@ -9,10 +9,12 @@
 <body>
   <section class="container">
     <h1>To Do List</h1>
-    <label for="search-form"></label>
-    <input id="search-form" />
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <div id="search-filters" class="filters"></div>
+    <form id="search-form">
+      <label for="search-input"></label>
+      <input id="search-input" />
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <div id="search-filters" class="filters"></div>
+    </form>
 
     <div id="todo-list"></div>
 
@@ -25,6 +27,7 @@
       <input id="title" type="text">
       <label for="description">Description</label>
       <textarea id="description"></textarea>
+
       <footer class="action-buttons">
         <button id="cancel-button"><i class="fa-solid fa-xmark"></i> Cancel</button>
         <button id="save-button" class="primary-btn"><i class="fa-solid fa-check"></i> Save</button>

@@ -1,9 +1,9 @@
 class ListItem {
-    constructor(title, description) {
+    constructor(title, description, tag) {
         this.ID = Math.floor(Math.random() * 100);
         this.title = title;
         this.description = description;
-        this.tags = ["Chores"];
+        this.tag = tag;
         this.isDone = false;
     }
 }
@@ -56,10 +56,8 @@ todoList.addEventListener('click', e => {
     }
 })
 TAGS.forEach( el => {
-    const tagTemplate = `<input type="radio" name="tags" id=${el} value=${el}><label for=${el}>${el}</label>`;
-
-    searchTags.innerHTML += tagTemplate;
-    tags.innerHTML += tagTemplate;
+    searchTags.innerHTML += `<input type="checkbox" name="sort-tags" id="sort-${el}" value=${el}><label for="sort-${el}">${el}</label>`;
+    tags.innerHTML += `<input type="radio" name="tags" id=${el} value=${el}><label for=${el}>${el}</label>`;
 })
 
 tags.getElementsByTagName("input")[0].checked = true;
@@ -74,7 +72,8 @@ saveButton.addEventListener("click", e => {
 
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
-    const newTask = new ListItem(title, description);
+    const tag = document.querySelector('input[name="tags"]:checked').value;
+    const newTask = new ListItem(title, description, tag);
 
     LIST.push(newTask);
 
@@ -97,7 +96,7 @@ function renderList(list) {
     list.forEach( el => {
         todoList.innerHTML += `
     <div class="card ${el.isDone ? "completed" : ""}" data-id='${el.ID}'>
-          <span class="filter-label">${el.tags}</span>
+          <span class="filter-label">${el.tag}</span>
           <div class="action-buttons">
             <i id="edit-btn" class="fa-solid fa-pen" data-action="edit"></i>
             <i class="fa-solid fa-trash" data-action="remove"></i>
