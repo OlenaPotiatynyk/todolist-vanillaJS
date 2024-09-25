@@ -12,16 +12,14 @@
     <label for="search-form"></label>
     <input id="search-form" />
     <i class="fa-solid fa-magnifying-glass"></i>
-    <div class="filters">
-      <span class="active">Chores</span><span>Work</span><span>Health</span>
-    </div>
+    <div id="search-filters" class="filters"></div>
 
     <div id="todo-list"></div>
 
     <form id="add-form" class="hidden">
       <header class="filters">
         <h5>Category</h5>
-        <span class="active">Chores</span><span>Work</span><span>Health</span>
+        <div id="tags" class="filters"></div>
       </header>
       <label for="title">Title</label>
       <input id="title" type="text">
@@ -32,6 +30,7 @@
         <button id="save-button" class="primary-btn"><i class="fa-solid fa-check"></i> Save</button>
       </footer>
     </form>
+
     <button id="add-button" class="primary-btn"><i class="fa-solid fa-plus"></i> Add Task</button>
 
   </section>

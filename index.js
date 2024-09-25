@@ -17,6 +17,13 @@ const TAGS = [
 ]
 
 const todoList = document.getElementById("todo-list");
+const addButton = document.getElementById("add-button");
+const addForm = document.getElementById("add-form");
+const saveButton = document.getElementById("save-button");
+const cancelButton = document.getElementById("cancel-button");
+const searchTags = document.getElementById("search-filters");
+const tags = document.getElementById("tags");
+
 renderList(LIST);
 
 todoList.addEventListener('click', e => {
@@ -48,17 +55,19 @@ todoList.addEventListener('click', e => {
             return;
     }
 })
+TAGS.forEach( el => {
+    const tagTemplate = `<input type="radio" name="tags" id=${el} value=${el}><label for=${el}>${el}</label>`;
 
-const addButton = document.getElementById("add-button");
-const addForm = document.getElementById("add-form");
+    searchTags.innerHTML += tagTemplate;
+    tags.innerHTML += tagTemplate;
+})
+
+tags.getElementsByTagName("input")[0].checked = true;
 
 addButton.addEventListener("click", () => {
     addButton.classList.add("hidden");
     addForm.classList.remove("hidden");
 });
-
-const saveButton = document.getElementById("save-button");
-const cancelButton = document.getElementById("cancel-button");
 
 saveButton.addEventListener("click", e => {
     e.preventDefault();

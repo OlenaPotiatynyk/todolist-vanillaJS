@@ -102,17 +102,24 @@ textarea {
     z-index: 2;
 }
 
-.filters span {
+#search-filters input,
+#tags input {
+    display: none;
+}
+
+.filters label {
     text-transform: uppercase;
     font-size: 10px;
     font-weight: 700;
 }
 
-.filters > span {
+.filters > label {
     margin-right: 10px;
+    margin-left: 0;
+    padding: 0;
 }
 
-.filters > .active {
+input:checked + label {
     color: #FF6600;
 }
 
