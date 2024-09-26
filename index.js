@@ -23,6 +23,7 @@ const saveButton = document.getElementById("save-button");
 const cancelButton = document.getElementById("cancel-button");
 const searchTags = document.getElementById("search-filters");
 const tags = document.getElementById("tags");
+const searchInput = document.getElementById("search-input");
 
 const activeFilters = new Set();
 
@@ -64,6 +65,23 @@ TAGS.forEach( tag => {
 })
 
 tags.getElementsByTagName("input")[0].checked = true;
+
+searchInput.addEventListener("keydown", event => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        renderList(LIST.filter(item => {
+            if (activeFilters.size === 0) {
+                return item.title.toLowerCase().includes(searchInput.value.toLowerCase())
+                || item.description.toLowerCase().includes(searchInput.value.toLowerCase())
+            } else {
+                return (item.title.toLowerCase().includes(searchInput.value.toLowerCase())
+                || item.description.toLowerCase().includes(searchInput.value.toLowerCase()))
+                && activeFilters.has(item.tag)
+            }
+        }))
+        searchInput.value = '';
+    }
+})
 
 addButton.addEventListener("click", () => {
     addButton.classList.add("hidden");
@@ -123,7 +141,7 @@ function closeForm() {
 }
 
 function filterByTag(tag) {
-    toggleActiveFilters(tag.value);
+    if (tag) toggleActiveFilters(tag.value);
 
     const tags = document.querySelector('input[name="filter-tags"]:checked');
     if (!tags) renderList(LIST);
