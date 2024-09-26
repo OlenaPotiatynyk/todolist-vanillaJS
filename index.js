@@ -24,6 +24,8 @@ const cancelButton = document.getElementById("cancel-button");
 const searchTags = document.getElementById("search-filters");
 const tags = document.getElementById("tags");
 
+const activeFilters = new Set();
+
 renderList(LIST);
 
 todoList.addEventListener('click', e => {
@@ -55,9 +57,10 @@ todoList.addEventListener('click', e => {
             return;
     }
 })
-TAGS.forEach( el => {
-    searchTags.innerHTML += `<input type="checkbox" name="sort-tags" id="sort-${el}" value=${el}><label for="sort-${el}">${el}</label>`;
-    tags.innerHTML += `<input type="radio" name="tags" id=${el} value=${el}><label for=${el}>${el}</label>`;
+TAGS.forEach( tag => {
+    searchTags.innerHTML += `<input type="checkbox" name="filter-tags" id="filter-${tag}" value=${tag} 
+                                    onclick="filterByTag(${tag})"><label for="filter-${tag}">${tag}</label>`;
+    tags.innerHTML += `<input type="radio" name="tags" id=${tag} value=${tag}><label for=${tag}>${tag}</label>`;
 })
 
 tags.getElementsByTagName("input")[0].checked = true;
@@ -117,6 +120,19 @@ function clearForm() {
 function closeForm() {
     addButton.classList.remove("hidden");
     addForm.classList.add("hidden");
+}
+
+function filterByTag(tag) {
+    toggleActiveFilters(tag.value);
+
+    const tags = document.querySelector('input[name="filter-tags"]:checked');
+    if (!tags) renderList(LIST);
+    else renderList(LIST.filter( item => activeFilters.has(item.tag)));
+}
+
+function toggleActiveFilters(tag) {
+    if (activeFilters.has(tag)) activeFilters.delete(tag)
+    else activeFilters.add(tag);
 }
 
 
