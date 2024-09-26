@@ -1,7 +1,7 @@
 /* General styles */
 
 * {
-    font-family: Inter, serif;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
 
@@ -11,13 +11,13 @@ body {
 }
 
 h1 {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 2.5rem; /* 40px */
+    line-height: 3rem; /* 48px */
 }
 
 h2 {
-    font-size: 24px;
-    line-height: 29px;
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.8125rem; /* 29px */
     margin: 0;
 }
 
@@ -42,6 +42,11 @@ button {
 button:hover {
     background-color: #9d3b00;
     color: #FFFFFF;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 2px solid #FF6600;
 }
 
 .primary-btn {
@@ -74,6 +79,7 @@ textarea {
 
 .action-buttons i:hover {
     color: #FF6600;
+    cursor: pointer;
 }
 
 /* Container styles */
@@ -143,7 +149,7 @@ input:checked + label {
     text-decoration-line: line-through;
 }
 
-.card.completed > .action-buttons >#edit-btn {
+.card.completed .action-buttons .fa-pen {
     display: none;
 }
 
@@ -175,4 +181,23 @@ input:checked + label {
     border-top: #999999 solid 1px;
     display: flex;
     flex-direction: column;
+}
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
 }

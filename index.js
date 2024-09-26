@@ -1,6 +1,6 @@
 class ListItem {
     constructor(title, description, tag) {
-        this.ID = Math.floor(Math.random() * 100);
+        this.ID = Date.now();
         this.title = title;
         this.description = description;
         this.tag = tag;
@@ -35,11 +35,20 @@ todoList.addEventListener('click', e => {
 
     switch (action) {
         case 'edit':
+            const item = LIST.find(el => el.ID === +itemID);
+            if (item) {
+                document.getElementById("title").value = item.title;
+                document.getElementById("description").value = item.description;
+                document.querySelector(`input[name="tags"][value="${item.tag}"]`).checked = true;
+                addForm.classList.remove("hidden");
+                addButton.classList.add("hidden");
 
+                LIST = LIST.filter(el => el.ID !== +itemID); // Remove old item to replace on save
+            }
             break
         case 'remove':
             LIST = LIST.filter(el => el.ID !== +itemID);
-            localStorage.setItem('todolist', JSON.stringify(LIST));
+            setListToLocalStorage();
 
             renderList(LIST);
             break
@@ -50,7 +59,7 @@ todoList.addEventListener('click', e => {
                 }
                 return el;
             });
-            localStorage.setItem('todolist', JSON.stringify(LIST));
+            setListToLocalStorage();
 
             renderList(LIST);
             break
@@ -58,11 +67,42 @@ todoList.addEventListener('click', e => {
             return;
     }
 })
-TAGS.forEach( tag => {
-    searchTags.innerHTML += `<input type="checkbox" name="filter-tags" id="filter-${tag}" value=${tag} 
-                                    onclick="filterByTag(${tag})"><label for="filter-${tag}">${tag}</label>`;
-    tags.innerHTML += `<input type="radio" name="tags" id=${tag} value=${tag}><label for=${tag}>${tag}</label>`;
-})
+TAGS.forEach(tag => {
+    // Create elements for search filters (checkboxes)
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.name = 'filter-tags';
+    checkbox.id = `filter-${tag}`;
+    checkbox.value = tag;
+    checkbox.onclick = () => filterByTag(tag); // Add event listener
+
+    const labelCheckbox = document.createElement('label');
+    labelCheckbox.htmlFor = `filter-${tag}`;
+    labelCheckbox.textContent = tag;
+
+    // Append the checkbox and label to the searchTags container
+    searchTags.appendChild(checkbox);
+    searchTags.appendChild(labelCheckbox);
+
+    // Create elements for task tags (radio buttons)
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'tags';
+    radio.id = tag;
+    radio.value = tag;
+
+    const labelRadio = document.createElement('label');
+    labelRadio.htmlFor = tag;
+    labelRadio.textContent = tag;
+
+    // Append the radio button and label to the tags container
+    tags.appendChild(radio);
+    tags.appendChild(labelRadio);
+});
+
+// Set the first radio button as checked by default
+tags.getElementsByTagName('input')[0].checked = true;
+
 
 tags.getElementsByTagName("input")[0].checked = true;
 
@@ -79,7 +119,6 @@ searchInput.addEventListener("keydown", event => {
                 && activeFilters.has(item.tag)
             }
         }))
-        searchInput.value = '';
     }
 })
 
@@ -97,9 +136,7 @@ saveButton.addEventListener("click", e => {
     const newTask = new ListItem(title, description, tag);
 
     LIST.push(newTask);
-
-    localStorage.setItem('todolist', JSON.stringify(LIST));
-
+    setListToLocalStorage();
     clearForm();
     closeForm();
     renderList(LIST);
@@ -112,22 +149,27 @@ cancelButton.addEventListener("click", e => {
 })
 
 function renderList(list) {
-    todoList.innerHTML = '';
+    todoList.innerHTML = ''; // Clear the list
 
-    list.forEach( el => {
-        todoList.innerHTML += `
-    <div class="card ${el.isDone ? "completed" : ""}" data-id='${el.ID}'>
-          <span class="filter-label">${el.tag}</span>
-          <div class="action-buttons">
-            <i id="edit-btn" class="fa-solid fa-pen" data-action="edit"></i>
-            <i class="fa-solid fa-trash" data-action="remove"></i>
-          </div>
-          <h2>${el.title}</h2>
-          <p>${el.description}</p>
-          <button id="button-done" class="primary-btn" data-action="done"><i class="fa-regular fa-circle-check"></i> ${el.isDone ? "Mark Undone" : "Mark as Done"}</button>
-    </div>
-`
-    })
+    list.forEach(el => {
+        const card = document.createElement('div');
+        card.className = `card ${el.isDone ? "completed" : ""}`;
+        card.dataset.id = el.ID;
+
+        card.innerHTML = `
+            <span class="filter-label">${el.tag}</span>
+            <div class="action-buttons">
+              <i class="fa-solid fa-pen" data-action="edit"></i>
+              <i class="fa-solid fa-trash" data-action="remove"></i>
+            </div>
+            <h2>${el.title}</h2>
+            <p>${el.description}</p>
+            <button class="primary-btn" data-action="done">
+              <i class="fa-regular fa-circle-check"></i> ${el.isDone ? "Mark Undone" : "Mark as Done"}
+            </button>
+        `;
+        todoList.appendChild(card); // Append the card to the list
+    });
 }
 
 function clearForm() {
@@ -140,17 +182,21 @@ function closeForm() {
     addForm.classList.add("hidden");
 }
 
-function filterByTag(tag) {
-    if (tag) toggleActiveFilters(tag.value);
+function filterByTag(el) {
+    if (el) toggleActiveFilters(el);
 
     const tags = document.querySelector('input[name="filter-tags"]:checked');
-    if (!tags) renderList(LIST);
+    if (!tags) renderList(LIST); // This will render the list if no tags are checked
     else renderList(LIST.filter( item => activeFilters.has(item.tag)));
 }
 
 function toggleActiveFilters(tag) {
     if (activeFilters.has(tag)) activeFilters.delete(tag)
     else activeFilters.add(tag);
+}
+
+function setListToLocalStorage() {
+    localStorage.setItem('todolist', JSON.stringify(LIST));
 }
 
 
