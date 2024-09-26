@@ -2,9 +2,7 @@
 
 Hi there!
 
-This is my practice in creating a simple TO DO LIST with Vanilla JS only.
-
-NOTE: WORK UNDER PROJECT STILL IN PROGRESS.
+This is my practice in creating a TO DO LIST with Vanilla JS.
 
 ## Project Description
 This project is a simple TO DO list application built using HTML, CSS, and Vanilla JavaScript. It allows users to:
@@ -32,12 +30,11 @@ Press the "Add" button or hit "Enter" to add the task to the list.
 Completed tasks will be visually indicated (e.g., struck through or highlighted).
 - **Delete a Task:** Click the "Delete" (trash bin) icon next to a task to remove it from the list.
 - **Task Persistence:** Your tasks are saved in your browser's localStorage, so they will remain even if you close or refresh the page.
-
-Additional Features:
 - **Edit Existing Task:** Active task can be edited.
 - **Responsive Design:** The TO DO list is fully responsive and can be used on mobile, tablet, and desktop devices.
 - **Search Bar:** You can filter tasks by any search keys.
 - **Filter By Tags:** You can filter tasks by tags.
+- **Filter Search Keys And Tags:** You can mix search with tags.
 
 ## Demo
 [Link to live demo if available.]
